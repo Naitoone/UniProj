@@ -1,0 +1,36 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #F2E9DC;
+}
+
+.cart {
+    margin-left:auto;
+}
+
+.catalog {
+    display:flex;
+    flex-flow:row wrap;
+
+}
+
+.items {
+    width: 200px;
+    height: 200px;
+    background-color: #808F85;
+    margin:50px;
+}
