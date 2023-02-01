@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using UniProj.Data;
 using UniProj.Models;
 
 namespace UniProj.Pages.Workers
 {
     public class EditModel : PositionNamePageModel
     {
-        private readonly UniProj.Data.WebShopContext _context;
+        private readonly Data.WebShopContext _context;
 
-        public EditModel(UniProj.Data.WebShopContext context)
+        public EditModel(Data.WebShopContext context)
         {
             _context = context;
         }
@@ -31,14 +24,16 @@ namespace UniProj.Pages.Workers
             }
 
             Worker = await _context.Workers
-                .Include(c => c.Position).FirstOrDefaultAsync(m => m.IdPosition == id);
+                .AsNoTracking()
+                .Include(c => c.Position)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Worker == null)
             {
                 return NotFound();
             }
 
-            PositionDropDownList(_context, Worker.Id);
+            PositionDropDownList(_context, Worker.IdPosition);
 
             return Page();
         }
@@ -60,7 +55,7 @@ namespace UniProj.Pages.Workers
             if (await TryUpdateModelAsync<Worker>(
                  workerToUpdate,
                  "worker",   // Prefix for form value.
-                   c => c.Name, c => c.IdPosition))
+                   s => s.Id, s => s.IdPosition, s => s.Name, s => s.LastName, s => s.Email, s => s.PhoneNumber, s => s.Salary))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using UniProj.Data;
 using UniProj.Models;
 
 namespace UniProj.Pages.Workers
 {
     public class IndexModel : PageModel
     {
-        private readonly UniProj.Data.WebShopContext _context;
+        private readonly Data.WebShopContext _context;
 
-        public IndexModel(UniProj.Data.WebShopContext context)
+        public IndexModel(Data.WebShopContext context)
         {
             _context = context;
         }
@@ -25,7 +19,7 @@ namespace UniProj.Pages.Workers
         {
             if (_context.Workers != null)
             {
-                Worker = await _context.Workers.ToListAsync();
+                Worker = await _context.Workers.AsNoTracking().Include(x => x.Position).ToListAsync();
             }
         }
     }

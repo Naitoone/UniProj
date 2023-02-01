@@ -28,7 +28,7 @@ namespace UniProj.Pages.Workers
                 return NotFound();
             }
 
-            var worker = await _context.Workers.FirstOrDefaultAsync(m => m.Id == id);
+            var worker = await _context.Workers.AsNoTracking().Include(x => x.Position).FirstOrDefaultAsync(m => m.Id == id);
             if (worker == null)
             {
                 return NotFound();

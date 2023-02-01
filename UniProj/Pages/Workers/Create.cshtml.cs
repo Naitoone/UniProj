@@ -34,7 +34,7 @@ namespace UniProj.Pages.Workers
         {
             var emptyWorker = new Worker();
 
-            if (await TryUpdateModelAsync<Worker>(
+            if (await TryUpdateModelAsync(
                  emptyWorker,
                  "worker",   // Prefix for form value.
                  s => s.Id, s => s.IdPosition, s => s.Name, s => s.LastName, s => s.Email, s => s.PhoneNumber, s => s.Salary))
@@ -45,7 +45,7 @@ namespace UniProj.Pages.Workers
             }
 
             // Select DepartmentID if TryUpdateModelAsync fails.
-            PositionDropDownList(_context, emptyWorker.Id);
+            PositionDropDownList(_context, emptyWorker.IdPosition);
             return Page();
 
         }

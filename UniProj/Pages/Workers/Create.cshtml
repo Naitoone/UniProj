@@ -17,7 +17,7 @@
                 <label asp-for="Worker.Position" class="control-label"></label>
                 <select asp-for="Worker.IdPosition" class="form-control"
                         asp-items="@Model.PositionNameSL">
-                    <option value="">-- Select Department --</option>
+                    <option value="">-- Select Position --</option>
                 </select>
                 <span asp-validation-for="Worker.IdPosition" class="text-danger" />
             </div>

@@ -33,6 +33,10 @@ namespace UniProj.Data
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Worker>().ToTable("Worker");
 
+            modelBuilder.Entity<Worker>()
+                .HasOne(x => x.Position)
+                .WithMany(x => x.Workers)
+                .HasForeignKey(x => x.IdPosition);
         }
     }
 }
